@@ -4,10 +4,10 @@ module.exports = {
     es2021: true,
     node: true
   },
+  extends: 'standard-with-typescript',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  extends: 'standard',
   rules: {}
 }
