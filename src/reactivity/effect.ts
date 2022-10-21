@@ -48,8 +48,15 @@ function cleanupEffect(effect) {
 
 const targetMap = new Map()
 
-function isTracking() {
+export function isTracking() {
   return shouldTrack && activeEffect !== undefined
+}
+
+export function trackEffects(dep) {
+  if (dep.has(activeEffect)) return
+
+  dep.add(activeEffect)
+  activeEffect.deps.push(dep)
 }
 
 // 收集依赖
@@ -68,17 +75,10 @@ export function track(target, key) {
     depsMap.set(key, dep)
   }
 
-  if (dep.has(activeEffect)) return
-
-  dep.add(activeEffect)
-  activeEffect.deps.push(dep)
+  trackEffects(dep)
 }
 
-// 触发依赖
-export function trigger(target, key) {
-  let depsMap = targetMap.get(target)
-  let dep = depsMap.get(key)
-
+export function triggerEffects(dep) {
   for (const effect of dep) {
     if (effect.scheduler) {
       effect.scheduler()
@@ -86,6 +86,14 @@ export function trigger(target, key) {
       effect.run()
     }
   }
+}
+
+// 触发依赖
+export function trigger(target, key) {
+  let depsMap = targetMap.get(target)
+  let dep = depsMap.get(key)
+
+  triggerEffects(dep)
 }
 
 export function effect(fn, options: Record<string, any> = {}) {

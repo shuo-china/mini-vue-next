@@ -17,6 +17,10 @@ function createGetter(isReadonly = false, isShallow = false) {
 
     const res = Reflect.get(target, key)
 
+    if (!isReadonly) {
+      track(target, key)
+    }
+
     if (isShallow) {
       return res
     }
@@ -25,9 +29,6 @@ function createGetter(isReadonly = false, isShallow = false) {
       return isReadonly ? readonly(res) : reactive(res)
     }
 
-    if (!isReadonly) {
-      track(target, key)
-    }
     return res
   }
 }
@@ -47,7 +48,7 @@ export const mutableHandler = {
 
 export const readonlyHandlers = {
   get: readonlyGet,
-  set(target, key, value) {
+  set(target, key) {
     console.warn(`key:${key} set fail, because target is readonly`, target)
     return true
   }
