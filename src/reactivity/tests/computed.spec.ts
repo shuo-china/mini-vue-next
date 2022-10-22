@@ -25,11 +25,11 @@ describe('effect', () => {
     expect(getter).not.toHaveBeenCalled()
 
     expect(cValue.value).toBe(1)
-    expect(getter).not.toHaveBeenCalledTimes(1)
+    expect(getter).toHaveBeenCalledTimes(1)
 
     // should not compute again
     cValue.value
-    expect(getter).not.toHaveBeenCalledTimes(1)
+    expect(getter).toHaveBeenCalledTimes(1)
 
     // should not compute until needed
     value.foo = 2
