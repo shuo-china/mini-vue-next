@@ -1,8 +1,10 @@
 import { h } from '../../lib/mini-vue-next.esm.js'
+import { Foo } from './Foo.js'
 
 window.self = null
 
 export const App = {
+  name: 'App',
   setup() {
     return {
       msg: 'zjs'
@@ -10,6 +12,21 @@ export const App = {
   },
   render() {
     window.self = this
-    return h('div', { id: 'root', class: ['red', 'hard'] }, 'hi,' + this.msg)
+    return h(
+      'div',
+      {
+        id: 'root',
+        class: ['red', 'hard'],
+        onClick() {
+          console.log('click')
+        }
+      },
+      [
+        h('div', {}, 'hi,' + this.msg),
+        h(Foo, {
+          count: 1
+        })
+      ]
+    )
   }
 }

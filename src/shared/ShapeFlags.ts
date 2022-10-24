@@ -1,10 +1,12 @@
 export const enum ShapeFlags {
-  // 0001
+  // 00001
   ELEMNENT = 1,
-  // 0010
+  // 00010
   STATEFUL_COMPONENT = 1 << 1,
-  // 0100
+  // 00100
   TEXT_CHILDREN = 1 << 2,
-  // 1000
-  ARRAY_CHILDREN = 1 << 3
+  // 01000
+  ARRAY_CHILDREN = 1 << 3,
+  // 10000
+  SLOT_CHILDREN = 1 << 4
 }
