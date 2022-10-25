@@ -4,14 +4,16 @@ import { initProps } from './componentProps'
 import { PublicInstanceProxyHandlers } from './componentPublicInstance'
 import { initSlots } from './componentSlots'
 
-export function createComponentInstance(vnode) {
+export function createComponentInstance(vnode, parent) {
   const component = {
     vnode,
     type: vnode.type,
     setupState: {},
     props: {},
     emit: () => {},
-    slots: {}
+    slots: {},
+    provides: parent ? parent.provides : {},
+    parent
   }
 
   component.emit = emit.bind(null, component) as any
@@ -34,10 +36,14 @@ export function setupStatefulComponent(instance) {
   const { setup } = Component
 
   if (setup) {
+    setCurrentInstance(instance)
+
     // 返回的是fn则为渲染函数，obj则为上下文
     const setupResult = setup(shallowReadonly(instance.props), {
       emit: instance.emit
     })
+
+    setCurrentInstance(null)
 
     handleSetupResult(instance, setupResult)
   }
@@ -58,4 +64,14 @@ function finishComponentSetup(instance) {
   if (Component.render) {
     instance.render = Component.render
   }
+}
+
+let currentInstance = null
+
+export function getCurrentInstance() {
+  return currentInstance
+}
+
+function setCurrentInstance(instance) {
+  currentInstance = instance
 }
