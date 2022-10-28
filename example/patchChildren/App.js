@@ -1,8 +1,8 @@
 import { h } from '../../lib/mini-vue-next.esm.js'
 // import ArrayToText from './ArrayToText.js'
 // import TextToText from './TextToText.js'
-import TextToArray from './TextToArray.js'
-// import ArrayToArray from './ArrayToArray.js'
+// import TextToArray from './TextToArray.js'
+import ArrayToArray from './ArrayToArray.js'
 
 export const App = {
   name: 'App',
@@ -13,7 +13,7 @@ export const App = {
       {
         tId: 1
       },
-      [h('p', {}, '主页'), h(TextToArray)]
+      [h('p', {}, '主页'), h(ArrayToArray)]
     )
   }
 }
