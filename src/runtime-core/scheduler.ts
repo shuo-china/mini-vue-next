@@ -1,9 +1,10 @@
 const queue: any[] = []
 
+const p = Promise.resolve()
 let isFlushPending = false
 
 export function nextTick(fn) {
-  return fn ? Promise.resolve().then(fn) : Promise.resolve()
+  return fn ? p.then(fn) : Promise.resolve()
 }
 
 export function queueJobs(job) {
