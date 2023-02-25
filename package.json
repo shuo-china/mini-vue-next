@@ -5,8 +5,8 @@
   "main": "lib/mini-vue-next.cjs.js",
   "module": "lib/mini-vue-next.esm.js",
   "scripts": {
-    "build": "rollup -c rollup.config.mjs",
-    "test": "jest",
+    "build": "rollup -c rollup.config.mjs -w",
+    "test": "jest --watch",
     "commit": "git-cz"
   },
   "repository": {
