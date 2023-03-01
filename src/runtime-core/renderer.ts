@@ -345,7 +345,10 @@ export function createRenderer(options) {
         if (!instance.isMounted) {
           const { proxy } = instance
 
-          const subTree = (instance.subTree = instance.render.call(proxy))
+          const subTree = (instance.subTree = instance.render.call(
+            proxy,
+            proxy
+          ))
 
           patch(null, subTree, container, instance, anchor)
 
@@ -362,7 +365,7 @@ export function createRenderer(options) {
           }
 
           // 本次组件render后的vnode
-          const subTree = instance.render.call(proxy)
+          const subTree = instance.render.call(proxy, proxy)
 
           // 上次组件render后的vnode
           const prevSubTree = instance.subTree

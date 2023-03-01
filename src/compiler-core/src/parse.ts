@@ -145,6 +145,7 @@ function advanceBy(context, length) {
 
 function createRoot(children) {
   return {
+    type: NodeTypes.ROOT,
     children
   }
 }
