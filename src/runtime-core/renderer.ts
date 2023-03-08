@@ -324,7 +324,7 @@ export function createRenderer(options) {
       instance.update()
     } else {
       n2.el = n1.el
-      instance.vnode = n2.vnode
+      instance.vnode = n2
     }
   }
 
